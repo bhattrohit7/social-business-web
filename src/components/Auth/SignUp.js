@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [businessName, setBusinessname] = useState('');
 
   const signUpPageStyle = {
     margin: '0',
@@ -47,18 +48,20 @@ const SignUp = () => {
 
   const onSignUp = (e) => {
     e.preventDefault();
-    fetch('/api/signup', {
+    fetch('http://localhost:3200/api/business-auth/sign-up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, username })
+        body: JSON.stringify({ businessEmail, password, businessName })
     })
     .then((response) => {
         if (response.ok) {
             console.log('User signed up successfully');
           } else {
-            console.error('Failed to sign up');
+            response.json().then((data) => {
+              console.error('Failed to sign up:', data.message)
+            });
           }
     })
     .catch((error) => {
@@ -72,17 +75,17 @@ const SignUp = () => {
       <label style={labelStyle}> Create your business account here! </label>
         <input
           type="text"
-          value={username}
+          value={businessName}
           placeholder="Username"
           style={inputStyle}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setBusinessname(e.target.value)}
         />
         <input
           type="email"
-          value={email}
+          value={businessEmail}
           placeholder="Email"
           style={inputStyle}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setBusinessEmail(e.target.value)}
         />
         <input
           type="password"
@@ -93,10 +96,10 @@ const SignUp = () => {
         />
         <input
           type="password"
-          value={password}
+          value={confirmPassword}
           placeholder="Confirm Password"
           style={inputStyle}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button type="submit" style={submitBtnStyle}>Sign Up</button>
       </form>

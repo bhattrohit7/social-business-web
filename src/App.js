@@ -6,6 +6,7 @@ import Login from './components/Auth/Login';
 import UpdateProfile from './components/UpdateProfile/UpdateProfile';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import EventsList from './components/EventsList/EventsList.component';
+import CreateEvent from './components/CreateEvent/CreateEvent'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/update-profile" element={<UpdateProfile />} />
             <Route path="/events" element={<EventsList />} />
+            <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
         </div>
      
